@@ -1,0 +1,117 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+{% block child_block %}
+
+{% if not edit %}
+<div class="container">
+  {% if messages %}
+    {% for message in messages %}
+      {% if 'update' in message.tags %}
+        <div class="row py-2">
+          <div class="col-12">
+            <div class="alert alert-primary alert-dismissible fade show" role='alert'>
+              {{message}}
+            </div>
+          </div>
+        </div>
+      {% elif 'err' in message.tags %}
+        <div class="row py-2">
+          <div class="col-12">
+            <div class="alert alert-danger alert-dismissible fade show" role='alert'>
+              {{message}}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  <div class="row py-2">
+    <div class="col-3">
+      Username
+    </div>
+    <div class="col-9">
+        {{user.username}}
+    </div>
+  </div>
+
+  <div class="row py-2">
+    <div class="col-3">
+      Email
+    </div>
+    <div class="col-9">
+        {{user.email}}
+    </div>
+  </div>
+
+  <div class="row py-2">
+    <div class="col-3">
+      Password
+    </div>
+    <div class="col-9">
+        {{user.password}}
+    </div>
+  </div>
+
+  <div class="row py-2">
+    <div class="col-3">
+        <button type="button" name="edit" class="btn btn-primary" onclick="location.href='{% url 'settings-edit' %}'">Edit</button>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<div class="container">
+    <form action="{% url 'settings-submit' userid=userid %}" method="post">
+      {% csrf_token %}
+  {% if messages %}
+    {% for message in messages %}
+      {% if 'err' in message.tags %}
+        <div class="row py-2">
+          <div class="col-12">
+            <div class="alert alert-danger alert-dismissible fade show" role='alert'>
+              {{message}}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  <div class="row py-2">
+    <div class="col-3">
+      Username
+    </div>
+    <div class="col-9">
+        <input type="text" name="username" value="{{user.username}}">
+    </div>
+  </div>
+
+  <div class="row py-2">
+    <div class="col-3">
+      Email
+    </div>
+    <div class="col-9">
+        <input type="email" name="email" value="{{user.email}}">
+    </div>
+  </div>
+
+  <div class="row py-2">
+    <div class="col-3">
+      Password
+    </div>
+    <div class="col-9">
+        <input type="password" name="password" value="{{user.password}}">
+    </div>
+  </div>
+
+  <div class="row py-2">
+    <div class="col-3">
+        <button type="submit" name="edit-data" class="btn btn-primary">Save</button>
+
+    </div>
+  </div>
+
+  </form>
+</div>
+{% endif %}
+{% endblock %}

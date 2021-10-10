@@ -1,0 +1,28 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  {% include 'pages/includes/head.html' %}
+  <body>
+
+
+      {% include 'pages/includes/header.html' %}
+      {% block child_block %}
+
+      {% endblock %}
+      {% include 'pages/includes/footer.html' %}
+
+
+
+    <!-- <div class="main-container">
+      <div class="middle-container">
+        <div class="sub-mid-container">
+
+        </div>
+      </div>
+    </div> -->
+
+
+
+    {% include 'pages/includes/foot.html' %}
+  </body>
+</html>
